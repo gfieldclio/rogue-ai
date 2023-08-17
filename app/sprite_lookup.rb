@@ -67,11 +67,11 @@ def sprite_lookup
   }
 end
 
-def sprite key
+def sprite(key)
   $gtk.args.state.reserved.sprite_lookup[key]
 end
 
-def member_name_as_code raw_member_name
+def member_name_as_code(raw_member_name)
   if raw_member_name.is_a? Symbol
     ":#{raw_member_name}"
   elsif raw_member_name.is_a? String
@@ -83,20 +83,15 @@ def member_name_as_code raw_member_name
   end
 end
 
-def tile x, y, tile_row_column_or_key
-  tile_extended x, y, DESTINATION_TILE_SIZE, DESTINATION_TILE_SIZE, TILE_R, TILE_G, TILE_B, TILE_A, tile_row_column_or_key
+def tile(x, y, key)
+  tile_extended(x, y, DESTINATION_TILE_SIZE, DESTINATION_TILE_SIZE, TILE_R, TILE_G, TILE_B, TILE_A, key)
 end
 
-def tile_extended x, y, w, h, r, g, b, a, tile_row_column_or_key
-  row_or_key, column = tile_row_column_or_key
-  if !column
-    row, column = sprite row_or_key
-  else
-    row, column = row_or_key, column
-  end
+def tile_extended(x, y, w, h, r, g, b, a, key)
+  row, column = sprite(key)
 
   if !row
-    member_name = member_name_as_code tile_row_column_or_key
+    member_name = member_name_as_code(key)
     raise "Unabled to find a sprite for #{member_name}. Make sure the value exists in app/sprite_lookup.rb."
   end
 

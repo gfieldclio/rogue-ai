@@ -1,6 +1,4 @@
-def tick_legend args
-  return unless SHOW_LEGEND
-
+def tick_legend(args)
   legend_padding = 16
   legend_x = 1280 - TILE_SHEET_SIZE - legend_padding
   legend_y =  720 - TILE_SHEET_SIZE - legend_padding
