@@ -13,15 +13,17 @@ module Scenes
 
     def self.prompt_for_game_details(args)
       prompt = <<-PROMPT
-      Choose a genre for your game (eg. fantasy, sci-fi, or horror). Then, based on the genre, pick a McGuffin (eg.
-      The Amulet of Yendor, the last peanut) to be what you are trying to retrieve for the game and write a backstory
-      for why someone would be on a quest to retrieve said item.
+      Choose a genre for your game (eg. sci-fi, steam-punk, horror). Then, based on the genre, pick a McGuffin (eg.
+      The Amulet of Yendor, the last peanut). Then pick a type of dungeon where the McGuffin would be stored (The Pits
+      of Despair, The Tower of Eternity). Finally write a backstory for why someone would be on a quest to retrieve said
+      item.
 
       Respond using a JSON object with the following format:
       {
         "genre": "sci-fi",
         "mcguffin": "The Amulet of Yendor",
         "hero": "The Last Unicorn",
+        "dungeon": "The Pits of Despair",
         "backstory": "A long time ago in a galaxy far, far away..."
       }
       PROMPT

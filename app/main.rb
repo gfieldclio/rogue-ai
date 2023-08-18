@@ -70,10 +70,6 @@ def tick_game(args)
     player_moved = true
   end
 
-  if args.inputs.mouse.click
-    args.state.chat_gpt_client.completions(args, "If you were a fruit, which one would you be and why? Respond in haiku.")
-  end
-
   #handle game logic
   # determine if there is an enemy on that square,
   # if so, don't let the player move there
@@ -96,22 +92,8 @@ def tick_game(args)
 
   # render game
   # render enemies at locations
-  args.outputs.solids << [0, 0, 1280, 720, 0, 0, 0]
-
   args.outputs.sprites << args.state.enemies.map do |e|
     tile_in_game(e[:x], e[:y], e[:tile_key])
-  end
-
-  # render label stuff
-  message_pane(args)
-
-  draw_label args, 0, 0, "Response:", args.state.request_response_body
-
-  if !args.state.openai_request.nil? && args.state.openai_request[:complete]
-    data = args.gtk.parse_json(args.state.openai_request[:response_data])
-    args.state.request_response_body = data["choices"][0]["message"]["content"]
-
-    args.state.openai_request = nil
   end
 end
 
@@ -125,18 +107,5 @@ def message_pane(args)
   args.outputs.borders << [960, 0, 1280, 360, 255, 255, 255]
   args.state.info_messages.last(10).reverse.each_with_index do |message, index|
     draw_label args, 10 - index, 18, nil, message
-  end
-end
-
-def draw_label(args, row, col, header, text)
-  label_pos = args.layout.rect(row: row, col: col, w: 0, h: 0)
-  output_text = header ? "#{header}\n\n#{text}" : text
-  args.outputs.labels << output_text.wrapped_lines(80).map_with_index do |l, i|
-    { x: label_pos.x, y: label_pos.y - (i * 15), text: l, size_enum: -2,
-      r: 255,
-      g: 255,
-      b: 255,
-      a: 255,
-    }
   end
 end
