@@ -1,6 +1,8 @@
 module Scenes
   module Intro
     def self.tick(args)
+      return skip_to_game(args) if false
+
       if args.state.tick_count == 0
         prompt_for_game_details(args)
       end
@@ -9,6 +11,17 @@ module Scenes
       handle_input(args)
 
       render(args)
+    end
+
+    def self.skip_to_game(args)
+      args.state.game_details = {
+        "genre" => "sci-fi",
+        "mcguffin" => "The Amulet of Yendor",
+        "hero" => "The Last Unicorn",
+        "dungeon" => "The Pits of Despair",
+        "backstory" => "A long time ago in a galaxy far, far away..."
+      }
+      args.state.scene = :game
     end
 
     def self.prompt_for_game_details(args)

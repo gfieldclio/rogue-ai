@@ -1,7 +1,5 @@
 require 'app/chat_gpt/client.rb'
 require 'app/constants.rb'
-require 'app/sprite_lookup.rb'
-require 'app/legend.rb'
 require 'data/config.rb'
 
 require "app/scenes/intro"
@@ -22,11 +20,7 @@ def tick(args)
   when :game
     Scenes::Game.tick(args)
   end
-  # tick_game(args)
-  # tick_legend(args) if SHOW_LEGEND && false
 end
-
-# McGuffin
 
 def tick_game(args)
   # setup the grid
